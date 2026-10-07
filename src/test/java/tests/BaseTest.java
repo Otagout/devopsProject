@@ -15,12 +15,18 @@ public class BaseTest {
     @BeforeEach
     void setUp() {
         ChromeOptions options = new ChromeOptions();
+
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--window-size=1920,1080");
 
+        // Fix Chromium DNS behavior inside the Jenkins container
+        options.addArguments("--disable-features=UseDnsHttpsSvc");
+        options.addArguments("--dns-prefetch-disable");
+
         driver = new ChromeDriver(options);
+
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
