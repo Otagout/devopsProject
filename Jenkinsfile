@@ -5,13 +5,13 @@ pipeline {
 
         stage('Selenium UI Tests') {
             steps {
-                bat '.\\mvn.cmd clean test'
+                sh 'mvn clean test'
             }
         }
 
         stage('API Tests') {
             steps {
-                bat 'newman run Reqres_API_Tests.postman_collection.json'
+                sh 'newman run Reqres_API_Tests.postman_collection.json'
             }
         }
     }
